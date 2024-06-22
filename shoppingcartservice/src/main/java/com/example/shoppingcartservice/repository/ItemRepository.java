@@ -1,11 +1,7 @@
 package com.example.shoppingcartservice.repository;
 
-import java.util.List;
-
+import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.shoppingcartservice.model.Item;
 
-public interface ItemRepository {
-    Item findByName(String name);
-    List<Item> findAll();
-    Item save(Item item);
+public interface ItemRepository extends JpaRepository<Item, Long> {
 }

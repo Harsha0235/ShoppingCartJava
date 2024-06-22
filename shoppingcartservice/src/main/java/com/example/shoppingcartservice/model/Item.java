@@ -1,19 +1,37 @@
 package com.example.shoppingcartservice.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+@Entity
 public class Item {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotBlank(message = "Name is required")
     private String name;
-    private double price;
-    private int stockQuantity;
+
+    @NotNull(message = "Price is required")
+    @Min(value = 0, message = "Price must be non-negative")
+    private Double price;
+
+    @NotNull(message = "In stock quantity is required")
+    @Min(value = 0, message = "In stock quantity must be non-negative")
+    private Integer inStock;
 
     public Item() {
     }
 
-    public Item(Long id, String name, double price, int stockQuantity) {
-        this.id = id;
+    public Item(String name, Double price, Integer inStock) {
         this.name = name;
         this.price = price;
-        this.stockQuantity = stockQuantity;
+        this.inStock = inStock;
     }
 
     public Long getId() {
@@ -32,19 +50,29 @@ public class Item {
         this.name = name;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
-    public int getStockQuantity() {
-        return stockQuantity;
+    public Integer getInStock() {
+        return inStock;
     }
 
-    public void setStockQuantity(int stockQuantity) {
-        this.stockQuantity = stockQuantity;
+    public void setInStock(Integer inStock) {
+        this.inStock = inStock;
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", inStock=" + inStock +
+                '}';
     }
 }
